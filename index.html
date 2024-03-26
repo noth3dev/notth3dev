@@ -1,0 +1,597 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable">
+<title>not_th3dev</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  ;
+}
+@font-face {
+    font-family: 'Gmarket Sans TTF';
+    src: url('GmarketSansTTFMedium.ttf') format('truetype');
+}
+body {
+  background-color: #F1f1f1;
+  height: 100vh;
+  perspective: 1000px;
+  user-select: none;
+}
+
+.cube {
+  transform: rotateX(-25deg) rotateY(25deg);
+  cursor: move;
+  transform-style: preserve-3d;
+  position: absolute;
+  width: 10vmin;
+  height: 10vmin;
+  left: 50%;
+  top: 50%;
+  margin: -5vmin 0 0 -5vmin; /* Centering the cube */
+  
+  /* Add lighting effects */
+  background: 
+    linear-gradient(45deg, rgba(255, 255, 255, 0.8), transparent),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.8), transparent),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.8), transparent),
+    linear-gradient(-135deg, rgba(255, 255, 255, 0.8), transparent),
+    linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent),
+    linear-gradient(to right, rgba(255, 255, 255, 0.8), transparent);
+}
+
+.cube .face {
+  box-sizing: border-box;
+  border: 1px solid #2563EB;
+  background-color: white;
+  width: 10vmin;
+  height: 10vmin;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Add lighting effects */
+  box-shadow: inset 0 0 20px #2563EB;
+  box-shadow: outset 0 0 20px #2563EB;
+}
+
+.cube .face.front {
+  transform: translateX(0px) translateY(0px) translateZ(5vmin) rotateX(0deg) rotateY(0deg);
+}
+
+.cube .face.back {
+  transform: translateX(0px) translateY(0px) translateZ(-5vmin) rotateX(0deg) rotateY(180deg); /* Changed rotation */
+}
+
+.cube .face.top {
+  transform: translateX(0px) translateY(-5vmin) translateZ(0px) rotateX(90deg) rotateY(0deg);
+}
+
+.cube .face.bottom {
+  transform: translateX(0px) translateY(5vmin) translateZ(0px) rotateX(90deg) rotateY(0deg);
+}
+
+.cube .face.left {
+  transform: translateX(-5vmin) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(-90deg); /* Changed rotation */
+}
+
+.cube .face.right {
+  transform: translateX(5vmin) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(90deg);
+}
+
+#currentFace {
+  position: absolute;
+  top: 96%;
+  width: 1000px;
+    left: 50%;
+    margin-left: -500px;
+  font-size: 25px;
+  text-align: center;
+  color: #2563EB;
+  font-family: VALORANT;
+}
+.text-container {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+}
+
+.text-container .text {
+  font-size: 20px;
+  font-family: Gmarket Sans TTF;
+  margin-bottom: 20px;
+}
+
+.text-container .text:last-child {
+  font-size: 40px;
+  color: #2563EB;
+  font-weight: 800;
+}
+#additionalText {
+  position: absolute;
+  top: 93%; /* 현재 face의 중간 위치에서 40px 위에 배치 */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  color: #000000;
+  font-family: Gmarket Sans TTF;
+
+}
+#initialText {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: Gmarket Sans TTF;
+  font-size: 12px;
+  color: #333;
+   /* Initially hidden */
+   .image-container {
+  position: absolute;
+  top: 50%;
+  right: 20px; /* 우측에 위치하도록 조정 */
+  transform: translateY(-50%);
+}
+
+}
+.additional-text {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 400px;
+  height: 300px;
+}
+.draw-the-code {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+  font-size: 27px;
+  line-height: 100px;
+  font-weight: 700;
+  font-family: Gmarket Sans TTF;
+  color: #2563EB;
+  width: fit-content;
+}
+.i {
+  color: var(--color-royalblue);
+}
+.i-not-th3dev {
+  margin: 0;
+}
+.e {
+  color: var(--color-royalblue);
+}
+.e-harrisonthedevnavercom {
+  margin: 0;
+}
+.i-not-th3dev-container {
+  position: relative;
+  line-height: 20px;
+  font-weight: 500;
+  font-size: 10px;
+}
+.dev-harris,
+.person-a,
+.person-a-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.dev-harris {
+  flex-direction: row;
+  padding: 0 19px;
+  text-align: left;
+  font-size: var(--font-size-xs);
+  color: var(--black);
+}
+.person-a,
+.person-a-wrapper {
+  max-width: 100%;
+  flex-shrink: 0;
+}
+.person-a {
+  width: 327px;
+  flex-direction: column;
+  gap: 100.70000000000071px;
+}
+.person-a-wrapper {
+  align-self: stretch;
+  flex-direction: row;
+  padding: 0 20px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 30px;
+  color: var(--color-royalblue);
+  font-family: var(--font-gmarket-sans-ttf);
+}
+.ide {
+  margin: 0;
+}
+.span {
+  color: var(--color-royalblue);
+}
+.p,
+.p1 {
+  margin: 0;
+}
+.ide-container1 {
+  width: 100%;
+}
+.b,
+.ide-container {
+  position: absolute;
+  margin: 0 !important;
+}
+.ide-container {
+  width: fit-content;
+  top: 86px;
+  left: 40px;
+  font-size: 12px;
+  line-height: 30px;
+  font-weight: 500;
+  font-family: Gmarket Sans TTF;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  color: var(--black);
+}
+.b {
+  height: 100%;
+  width: 1129px;
+  top: 0;
+  right: -853px;
+  text-decoration: line-through;
+  line-height: 24px;
+  display: inline-block;
+  opacity: 1;
+  white-space: nowrap;
+}
+.b.animate {
+  animation: 23s linear -11.5s infinite normal forwards marquee-text;
+}
+.image-14-icon {
+  height: 3px;
+  width: 10px;
+  position: relative;
+  object-fit: cover;
+  z-index: 1;
+}
+.frame-parent,
+.parent {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+.parent {
+  width: 276px;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 11px 59px 32px;
+  flex-shrink: 0;
+  font-size: 1px;
+  left: 40px;
+}
+.projectbtn{
+  background-color: #2563EB;
+  border-radius: 5px;
+  font-family: GmarketSansTTF;
+  color: white;
+  font-size: 10px;
+  width: 140px;
+  height: 40px;
+  border: none;
+  position: relative;
+  left: 40px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="text-container">
+  <div class="text" id="textfirst">First Line</div>
+  <div class="text" id="textsecond">Second Line</div>
+</div>
+<div id="initialText">큐브를 드래그하여 회전을 시작하세요.</div>
+
+<div class="cube">
+  <div class="face front"></div>
+  <div class="face back"></div>
+  <div class="face top"></div>
+  <div class="face bottom"></div>
+  <div class="face left"></div>
+  <div class="face right"></div>
+
+</div><div id="additionalText" style="color: #3e3e3e;">스튜디오 루멘 대표 <span style="color: blue;">김세준</span></div>
+
+<div id="currentFace" class="text"></div>
+
+<div class="additional-text" id="div001">
+  <section class="person-a-wrapper">
+    <div class="person-a">
+      <h1 class="draw-the-code">“DRAW THE CODE”</h1>
+      <div class="dev-harris">
+        <div class="i-not-th3dev-container">
+          <p class="i-not-th3dev">
+            <span class="i">I |</span>
+            <span> @not_th3dev</span>
+          </p>
+          <p class="e-harrisonthedevnavercom">
+            <span class="e">E |</span>
+            <span> harrisonthedev@naver.com</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="ide-container">
+    <span class="ide-container1">
+      <p class="ide">
+        IDE라는 캔버스 위에 코드라는 명령어로 그림을 그리다.
+      </p>
+      <p class="p">
+        <span class="span">프로그래밍이라는 예술</span>
+        <span>을 즐기는 아티스트,</span>
+      </p>
+      <p class="p1">김세준입니다.</p>
+    </span>
+  </section>
+</div>
+<div class="additional-text" id="div002">
+  <section class="person-a-wrapper">
+    <div class="person-a">
+      <h1 class="draw-the-code">길은 만들면 있는것.</h1>
+      <div class="dev-harris">
+      </div>
+    </div>
+  </section>
+  <section class="ide-container">
+    <span class="ide-container1">
+      <p class="ide">
+        모두가 불가능하다하고, 누구도 가능하지 않다 하는것.
+      </p>
+      <p class="p">
+        <span class="span">14살에 창업을 시작, 16살 최고매출 1000 돌파.</span>
+        <span>혁신의 개척자,</span>
+      </p>
+      <p class="p1">김세준입니다.</p>
+    </span>
+  </section>
+  <button class="projectbtn" id="">스튜디오 루멘(스타트업)</button>
+</div>
+</div>
+<div class="additional-text" id="div003">
+  <section class="person-a-wrapper">
+    <div class="person-a">
+      <h1 class="draw-the-code">실패는 있어도 포기는 없다.</h1>
+      <div class="dev-harris">
+      </div>
+    </div>
+  </section>
+  <section class="ide-container">
+    <span class="ide-container1">
+      <p class="ide">
+        실패를 밟고 성공을, 성공을 밟고 더 큰 성공을 이뤄냅니다.
+      </p>
+      <p class="p">
+        <span class="span">4일간 2.2GB의 코드를 만들어내는등,</span>
+        <span>열정을 넘은 객기의 루키,</span>
+      </p>
+      <p class="p1">김세준입니다.</p>
+    </span>
+  </section>
+  <button class="projectbtn" onclick="window.open('https://noth3dev.github.io/imrookie/')">프로젝트 보러가기</button>
+
+</div>
+<div class="additional-text" id="div004">  
+  <section class="person-a-wrapper">
+  <div class="person-a">
+    <h1 class="draw-the-code">우주를 밝히는 빛, 초신성</h1>
+    <div class="dev-harris">
+    </div>
+  </div>
+</section>
+<section class="ide-container">
+  <span class="ide-container1">
+    <p class="ide">
+      빛은 어디에서나, 누구에게나 같다.
+    </p>
+    <p class="p">
+      <span class="span">사회적 가치를 중시하는 스타트업, 빛을 나누는 사회</span>
+      <span>세상의 밝은 빛,</span>
+    </p>
+    <p class="p1">김세준입니다.</p>
+  </span>
+</section>
+<button class="projectbtn" >비젼, 지향가치</button>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+<script>const cubeEl = document.querySelector(".cube");
+  const currentFaceEl = document.getElementById("currentFace");
+  const textFirstEl = document.getElementById("textfirst");
+  const textSecondEl = document.getElementById("textsecond");
+  const additionalTextEl = document.getElementById("additionalText");
+  
+  let clickX = 0;
+  let clickY = 0;
+  let sensitivity = 0.5;
+  let moveX = 0;
+  let moveY = 0;
+  let lastX = -25;
+  let lastY = 25;
+  
+  cubeEl.addEventListener("mousedown", (e) => {
+    let isClick = true;
+  
+    clickX = e.screenX;
+    clickY = e.screenY;
+  
+    window.addEventListener("mousemove", (e) => {
+      if (isClick) {
+        const nowX = e.screenX;
+        const nowY = e.screenY;
+  
+        moveX = lastX + (clickY - nowY) * sensitivity;
+        moveY = lastY - (clickX - nowX) * sensitivity;
+  
+        displayContent(moveY);
+  
+        gsap.to(cubeEl, 0, {
+          transform: `rotateX(${moveX}deg) rotateY(${moveY}deg)`,
+        });
+      }
+    });
+  
+    window.addEventListener(
+      "mouseup",
+      (e) => {
+        if (isClick) {
+          lastX = moveX;
+          lastY = moveY;
+          isClick = false;
+        }
+      },
+      { once: true }
+    );
+  });
+  
+  cubeEl.addEventListener(
+    "touchstart",
+    (e) => {
+      let isTouch = true;
+  
+      clickX = e.targetTouches[0].screenX;
+      clickY = e.targetTouches[0].screenY;
+  
+      window.addEventListener("touchmove", (e) => {
+        if (isTouch) {
+          const nowX = e.targetTouches[0].screenX;
+          const nowY = e.targetTouches[0].screenY;
+  
+          moveX = lastX + (clickY - nowY) * sensitivity;
+          moveY = lastY - (clickX - nowX) * sensitivity;
+  
+          displayContent(moveY);
+  
+          gsap.to(cubeEl, 0, {
+            transform: `rotateX(${moveX}deg) rotateY(${moveY}deg)`,
+          });
+        }
+      });
+  
+      window.addEventListener(
+        "touchend",
+        (e) => {
+          if (isTouch) {
+            lastX = moveX;
+            lastY = moveY;
+            isTouch = false;
+          }
+        },
+        { once: true }
+      );
+    },
+    false
+  );
+  
+  function displayContent(rotation) {
+    let adjustedRotation = rotation % 360; // 각도를 360으로 나눈 나머지를 사용하여 음수 각도 처리
+    if (adjustedRotation < 0) {
+      adjustedRotation += 360; // 음수 각도를 양수로 변환
+    }
+  
+    let textCurrentFace = "";
+    let textFirst = "";
+    let textSecond = "";
+    let divToShow = "";
+    let textToShow = "";
+    if (adjustedRotation < 45 || adjustedRotation >= 315) {
+      textCurrentFace = "\"Notth3dev\"";
+      textFirst = "개발자를 뛰어넘은";
+      textSecond = "THE ARTIST";
+      divToShow = "div001";
+    } else if (adjustedRotation >= 45 && adjustedRotation < 135) {
+      textCurrentFace = "\"Pioneer\"";
+      textFirst = "정보기술로 차원문을 여는";
+      textSecond = "BOLD PIONEER";
+      divToShow = "div002";
+    } else if (adjustedRotation >= 135 && adjustedRotation < 225) {
+      textCurrentFace = "\"Super Rookie\"";
+      textFirst = "깡과 열정의";
+      textSecond = "Super Rookie";
+      divToShow = "div003";
+    } else if (adjustedRotation >= 225 && adjustedRotation < 315) {
+      textCurrentFace = "\"SUPERNOVA\"";
+      textFirst = "화려하며 거대한";
+      textSecond = "SUPERNOVA";
+      divToShow = "div004";
+    } 
+    gsap.to([currentFaceEl, textFirstEl, textSecondEl, additionalTextEl], { duration: 0.5, y: -20, opacity: 0, zIndex: 0, onComplete: () => {
+  currentFaceEl.innerText = textCurrentFace;
+  textFirstEl.innerText = textFirst;
+  textSecondEl.innerText = textSecond;
+  additionalTextEl.innerText = "스튜디오 루멘 대표 김세준";
+  gsap.to([currentFaceEl, textFirstEl, textSecondEl, additionalTextEl], { duration: 0.5, y: 0, opacity: 1, zIndex: 100 });
+}});
+
+  
+    gsap.to("#div001, #div002, #div003, #div004", { duration: 0.5, opacity: 0, zIndex: 0 }); // 모든 div를 투명하게 만듭니다.
+  
+    if (adjustedRotation < 45 || adjustedRotation >= 315) {
+      gsap.to("#div001", { duration: 0.5, opacity: 1, zIndex: 100}); // div001을 나타나도록 합니다.
+    } else if (adjustedRotation >= 45 && adjustedRotation < 135) {
+      gsap.to("#div002", { duration: 0.5, opacity: 1, zIndex: 100}); // div002를 나타나도록 합니다.
+    } else if (adjustedRotation >= 135 && adjustedRotation < 225) {
+      gsap.to("#div003", { duration: 0.5, opacity: 1, zIndex:100}); // div003을 나타나도록 합니다.
+    } else if (adjustedRotation >= 225 && adjustedRotation < 315) {
+      gsap.to("#div004", { duration: 0.5, opacity: 1, zIndex: 100}); // div004를 나타나도록 합니다.
+    }
+  }
+  
+  const initialText = document.getElementById("initialText");
+  
+  cubeEl.addEventListener("mousedown", hideInitialText);
+  cubeEl.addEventListener("touchstart", hideInitialText);
+  
+  function hideInitialText() {
+    initialText.style.display = "none";
+  }
+  
+  cubeEl.addEventListener("mouseup", showInitialText);
+  cubeEl.addEventListener("touchend", showInitialText);
+  
+  function showInitialText() {
+    initialText.style.display = "block";
+  }
+  
+  window.addEventListener('DOMContentLoaded', (event) => {
+    // 처음에 70도 회전한 상태에서 시작
+    let initialRotationX = -30; // X 축 회전
+    let initialRotationY = 30; // Y 축 회전
+  
+    gsap.to(cubeEl, 0, {
+      transform: `rotateX(${initialRotationX}deg) rotateY(${initialRotationY}deg)`,
+    });
+  
+    lastX = initialRotationX;
+    lastY = initialRotationY;
+  
+    displayContent(lastY);
+  });
+  
+</script>
+
+</body>
+</html>
